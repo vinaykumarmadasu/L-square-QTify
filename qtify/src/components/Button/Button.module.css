@@ -1,0 +1,19 @@
+.button {
+  height: 47px;
+  padding: 10px 16px;
+  background-color: var(--color-black);
+  color: var(--color-green);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button:hover {
+  background-color: var(--color-dark-green);
+}

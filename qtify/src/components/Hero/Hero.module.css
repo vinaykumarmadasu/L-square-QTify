@@ -1,0 +1,36 @@
+.hero {
+  background-color: var(--color-black);
+  color: white;
+  width: 100%;
+  height: 60vh; /* height to fill a portion of the screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  color: white;
+  font-size: 2rem; /* font size for hero title */
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.hero img {
+  max-width: 100%; /* Ensures image is responsive */
+  height: auto;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .hero {
+      flex-direction: row; /* Aligns image and text horizontally on larger screens */
+      gap: 20px;
+  }
+
+  .hero h1 {
+      font-size: 3rem;
+  }
+}

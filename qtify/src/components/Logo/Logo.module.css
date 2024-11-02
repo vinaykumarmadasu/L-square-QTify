@@ -1,0 +1,22 @@
+.logoContainer {
+    display: flex;
+    align-items: center;
+    /* position: relative;
+    top: 20px;
+    left: 32px;
+    width: 67px;
+    height: 34px; */
+    gap: 8px;
+  }
+  
+  /* .logoImage {
+    width: 100%;
+    height: auto;
+  } */
+
+  .logoText {
+    color: white;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+  }
+  

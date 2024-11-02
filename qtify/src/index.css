@@ -1,3 +1,10 @@
+:root {
+  --color-black: #000000;
+  --color-green: #1DB954; /* Replace with desired green color */
+  --color-dark-green: #1A8A3D; /* Darker shade for hover effect */
+  --color-primary: #282c34; /* Example primary color, replace if needed */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

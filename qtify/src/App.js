@@ -1,10 +1,15 @@
-import logo from './logo.svg';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
 import './App.css';
 
 function App() {
+  const searchData = [];
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,8 +22,11 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <Navbar searchData={searchData} />
+      <Hero />
     </div>
+    </Router>
   );
 }
 

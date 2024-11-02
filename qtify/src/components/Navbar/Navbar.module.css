@@ -1,0 +1,28 @@
+.navbar {
+  background-color: var(--color-green);
+  height: 74px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 600px; 
+}
+
+.feedbackButtonContainer {
+  display: flex;
+  align-items: center;
+}
