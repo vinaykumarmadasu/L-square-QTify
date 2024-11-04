@@ -6,10 +6,10 @@ import styles from './Card.module.css';
 function Card({ album }) {
   return (
     <div className={styles.card}>
-      <img src={album.image} alt={album.title} className={styles.image} />
+      <img src={album.image || 'https://via.placeholder.com/200'} alt={album.title || 'Album Image'} className={styles.image} />
       <div className={styles.details}>
-        <h3 className={styles.title}>{album.title}</h3>
-        <Chip label={`${album.follows} Follows`} className={styles.chip} />
+        <h3 className={styles.title}>{album.title || 'No Title Available'}</h3>
+        <Chip label={`${album.follows || 0} Follows`} className={styles.chip} />
         <p className={styles.description}>New English Songs</p>
       </div>
     </div>

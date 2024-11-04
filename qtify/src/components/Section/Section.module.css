@@ -18,40 +18,45 @@
   width: 100%;
 }
 
-.topTitle, .newTitle {
+.title {
   color: var(--color-primary);
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
-.showAllButton {
-  background: none;
-  border: none;
-  color: #00ff00;
-  cursor: pointer;
+.carouselContainer {
+  display: flex;
+  align-items: center; /* Aligns buttons and cards vertically */
+  justify-content: space-between; /* Space between buttons and card area */
+  width: 100%; /* Full width */
 }
 
 .scrollContainer {
   display: flex;
-  align-items: center;
-  width: 100%;
+  align-items: center; /* Align items vertically */
+  overflow-x: auto; /* Allow horizontal scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  padding: 10px 0; /* Space around cards */
+  flex-grow: 1; /* Allow the container to take remaining space */
 }
 
 .cardContainer {
   display: flex;
-  gap: 10px;
-  overflow-x: auto; /* Allows horizontal scrolling */
-  padding: 10px 0;
-  flex: 1; /* Take up remaining space */
-  max-width: 100%;
-  scroll-behavior: smooth; /* Enables smooth scrolling */
+  gap: 20px; /* Space between cards */
 }
 
-.scrollButton {
+.carouselControl {
   background: transparent;
   border: none;
-  font-size: 24px;
-  color: #00ff00;
-  cursor: pointer;
-  padding: 0 10px;
+  font-size: 2rem; /* Adjust button size */
+  color: #00ff00; /* Customize color */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.carouselIcon {
+  font-size: 2rem; /* Adjust icon size */
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
 }

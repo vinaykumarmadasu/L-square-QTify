@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '../Card/Card';
 import styles from './Section.module.css';
@@ -7,77 +7,79 @@ function Section({ title, isTopAlbums }) {
   const [topAlbums, setTopAlbums] = useState([]);
   const [newAlbums, setNewAlbums] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    async function fetchTopAlbums() {
+    const fetchAlbums = async () => {
       try {
-        const response = await axios.get('https://qtify-backend-labs.crio.do/albums/top');
-        setTopAlbums(response.data);
+        const endpoint = isTopAlbums
+          ? 'https://qtify-backend-labs.crio.do/albums/top'
+          : 'https://qtify-backend-labs.crio.do/albums/new';
+        
+        const response = await axios.get(endpoint);
+        
+        // Check if the expected album exists in the response
+        if (response.data && Array.isArray(response.data)) {
+          console.log('Fetched albums:', response.data);
+          
+          // Set the appropriate state based on isTopAlbums
+          if (isTopAlbums) {
+            setTopAlbums(response.data);
+          } else {
+            setNewAlbums(response.data);
+          }
+        } else {
+          console.log('Unexpected response format', response);
+        }
       } catch (error) {
-        console.error('Error fetching top albums:', error);
+        console.log(`Error fetching ${title}`, error);
       }
-    }
+    };
 
-    async function fetchNewAlbums() {
-      try {
-        const response = await axios.get('https://qtify-backend-labs.crio.do/albums/new');
-        setNewAlbums(response.data);
-      } catch (error) {
-        console.error('Error fetching new albums:', error);
-      }
-    }
+    fetchAlbums();
+  }, [isTopAlbums, title]);
 
-    if (isTopAlbums) {
-      fetchTopAlbums();
-    } else {
-      fetchNewAlbums();
-    }
-  }, [isTopAlbums]);
-
-  const albumsToDisplay = isTopAlbums ? topAlbums : newAlbums;
-  const displayedAlbums = showAll ? albumsToDisplay : albumsToDisplay.slice(0, 7);
-
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        top: 0,
-        left: -scrollContainerRef.current.offsetWidth / 2, // Scroll left by half of the container's width
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        top: 0,
-        left: scrollContainerRef.current.offsetWidth / 2, // Scroll right by half of the container's width
-        behavior: 'smooth',
-      });
-    }
-  };
+  // Determine the displayed albums based on the isTopAlbums prop
+  const displayedAlbums = showAll ? (isTopAlbums ? topAlbums : newAlbums) : (isTopAlbums ? topAlbums.slice(0, 7) : newAlbums.slice(0, 7));
+  
+  const scrollContainerId = isTopAlbums ? 'topAlbumsScrollContainer' : 'newAlbumsScrollContainer';
 
   return (
     <div className={styles.container}>
       <div className={styles.section}>
         <div className={styles.titleContainer}>
-          <h2 className={isTopAlbums ? styles.topTitle : styles.newTitle}>{title}</h2>
+          <h2 className={styles.title}>{title}</h2>
           <button className={styles.showAllButton} onClick={() => setShowAll(!showAll)}>
             {showAll ? 'Collapse' : 'Show All'}
           </button>
         </div>
-        <div className={styles.scrollContainer}>
-          <button className={styles.scrollButton} onClick={scrollLeft}>{"<"}</button>
-          <div className={styles.cardContainer} ref={scrollContainerRef}>
-            {displayedAlbums.map(album => (
-              <Card key={album.id} album={album} />
-            ))}
+
+        <div className={styles.carouselContainer}>
+          <button
+            className={styles.carouselControl}
+            type="button"
+            onClick={() => document.getElementById(scrollContainerId).scrollBy({ left: -300, behavior: 'smooth' })}
+          >
+            <span className={styles.carouselIcon}>&lt;</span> {/* Left arrow */}
+          </button>
+
+          <div className={styles.scrollContainer} id={scrollContainerId}>
+            <div className={styles.cardContainer}>
+              {displayedAlbums.map(album => (
+                <Card key={album.id} album={album} />
+              ))}
+            </div>
           </div>
-          <button className={styles.scrollButton} onClick={scrollRight}>{">"}</button>
+
+          <button
+            className={styles.carouselControl}
+            type="button"
+            onClick={() => document.getElementById(scrollContainerId).scrollBy({ left: 300, behavior: 'smooth' })}
+          >
+            <span className={styles.carouselIcon}>&gt;</span> {/* Right arrow */}
+          </button>
         </div>
       </div>
-      <p>Total Albums: {albumsToDisplay.length}</p>
+      <p>Total Albums: {isTopAlbums ? topAlbums.length : newAlbums.length}</p>
     </div>
   );
 }
