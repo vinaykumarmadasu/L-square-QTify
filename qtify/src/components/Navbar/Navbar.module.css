@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: space-between;
   color: white;
-  position: relative;
   width: 100vw;
   box-sizing: border-box;
 }
@@ -21,9 +20,8 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  max-width: 600px; 
+  max-width: 600px;
 }
-
 
 .feedbackButtonContainer {
   display: flex;

@@ -13,7 +13,6 @@ function Section({ title, isTopAlbums }) {
     async function fetchTopAlbums() {
       try {
         const response = await axios.get('https://qtify-backend-labs.crio.do/albums/top');
-        console.log(response.data);
         setTopAlbums(response.data);
       } catch (error) {
         console.error('Error fetching top albums:', error);
@@ -23,7 +22,6 @@ function Section({ title, isTopAlbums }) {
     async function fetchNewAlbums() {
       try {
         const response = await axios.get('https://qtify-backend-labs.crio.do/albums/new');
-        console.log(response.data);
         setNewAlbums(response.data);
       } catch (error) {
         console.error('Error fetching new albums:', error);
@@ -37,19 +35,26 @@ function Section({ title, isTopAlbums }) {
     }
   }, [isTopAlbums]);
 
-  // Determine which albums to display based on the `isTopAlbums` prop
   const albumsToDisplay = isTopAlbums ? topAlbums : newAlbums;
   const displayedAlbums = showAll ? albumsToDisplay : albumsToDisplay.slice(0, 7);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({
+        top: 0,
+        left: -scrollContainerRef.current.offsetWidth / 2, // Scroll left by half of the container's width
+        behavior: 'smooth',
+      });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({
+        top: 0,
+        left: scrollContainerRef.current.offsetWidth / 2, // Scroll right by half of the container's width
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -62,15 +67,17 @@ function Section({ title, isTopAlbums }) {
             {showAll ? 'Collapse' : 'Show All'}
           </button>
         </div>
-        <div className={styles.scrollContainer} ref={scrollContainerRef}>
+        <div className={styles.scrollContainer}>
           <button className={styles.scrollButton} onClick={scrollLeft}>{"<"}</button>
-          {displayedAlbums.map(album => (
-            <Card key={album.id} album={album} />
-          ))}
+          <div className={styles.cardContainer} ref={scrollContainerRef}>
+            {displayedAlbums.map(album => (
+              <Card key={album.id} album={album} />
+            ))}
+          </div>
           <button className={styles.scrollButton} onClick={scrollRight}>{">"}</button>
         </div>
       </div>
-      <p>Total Albums: {albumsToDisplay.length}</p> {/* Optional: Display total count for verification */}
+      <p>Total Albums: {albumsToDisplay.length}</p>
     </div>
   );
 }

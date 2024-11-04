@@ -1,6 +1,5 @@
 .hero {
-  width: 100vw; /* Ensures the hero section fits the full screen width */
-  max-width: 100%; /*Prevents horizontal overflow*/
+  width: 100vw;
   padding: 20px;
   box-sizing: border-box;
   color: white;
@@ -10,40 +9,27 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* background-color: var(--color-black);
-  color: white;
-  width: 100%;
-  height: 40vh; /* height to fill a portion of the screen */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px; */
 }
 
 .hero h2 {
   color: white;
-  font-size: 2rem; /* font size for hero title */
+  font-size: 2rem;
   font-weight: bold;
   margin: 10px 0;
 }
 
 .hero img {
-  max-width: 100%; /* Ensures image is responsive */
+  max-width: 100%;
   height: auto;
-  /* margin-top: 20px; */
   object-fit: cover;
 }
 
 @media (min-width: 768px) {
   .hero {
-      flex-direction: row; /* Aligns image and text horizontally on larger screens */
-      gap: 20px;
-      
+    flex-direction: row;
+    gap: 20px;
   }
-
   .hero h2 {
-      font-size: 3rem;
+    font-size: 3rem;
   }
 }

@@ -10,11 +10,7 @@ function Hero() {
         <h2>Over thousands podcast episodes</h2>
       </div>
       <div>
-        <img
-          src={headphonesImage}//{require("../../assets/vibrating_headphone 1.png")}
-         // width={212}
-          alt="Headphones"
-        />
+        <img src={headphonesImage} alt="Headphones" />
       </div>
    </div>
   );
