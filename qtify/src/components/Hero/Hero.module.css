@@ -1,17 +1,28 @@
 .hero {
-  background-color: var(--color-black);
+  width: 100vw; /* Ensures the hero section fits the full screen width */
+  max-width: 100%; /*Prevents horizontal overflow*/
+  padding: 20px;
+  box-sizing: border-box;
   color: white;
-  width: 100%;
-  height: 60vh; /* height to fill a portion of the screen */
+  background-color: var(--color-black);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 50px 20px;
+  /* background-color: var(--color-black);
+  color: white;
+  width: 100%;
+  height: 40vh; /* height to fill a portion of the screen */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px; */
 }
 
-.hero h1 {
+.hero h2 {
   color: white;
   font-size: 2rem; /* font size for hero title */
   font-weight: bold;
@@ -21,16 +32,18 @@
 .hero img {
   max-width: 100%; /* Ensures image is responsive */
   height: auto;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  object-fit: cover;
 }
 
 @media (min-width: 768px) {
   .hero {
       flex-direction: row; /* Aligns image and text horizontally on larger screens */
       gap: 20px;
+      
   }
 
-  .hero h1 {
+  .hero h2 {
       font-size: 3rem;
   }
 }

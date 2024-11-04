@@ -1,5 +1,12 @@
- .App {
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  background-color: #121212;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
 }
 
 .App-logo {
@@ -12,6 +19,50 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+/* Wrapper for the Hero section */
+.hero-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 74px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  /* width: 1440px;
+  height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 74px; */
+}
+
+/* Wrapper for album sections (Top Albums and New Albums) */
+.album-sections {
+  width: 100%;
+  /* max-width: 1440px; */
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  /* width: 100%; /* Make it responsive to screen width */
+  /* margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 20px;
+  box-sizing: border-box; */
+}
+
+.album-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 16px;
+}
+
 
 .App-header {
   background-color: #282c34;

@@ -7,6 +7,8 @@
   justify-content: space-between;
   color: white;
   position: relative;
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 .logoContainer {

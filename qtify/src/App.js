@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
+import Section from './components/Section/Section';
 import './App.css';
 
 function App() {
@@ -24,7 +25,13 @@ function App() {
         </a>
       </header> */}
       <Navbar searchData={searchData} />
-      <Hero />
+      <div className="hero-wrapper">
+          <Hero />
+        </div>
+        <div className="album-sections">
+        <Section title="Top Albums" isTopAlbums={true} />
+        <Section title="New Albums" isTopAlbums={false} />
+        </div>
     </div>
     </Router>
   );

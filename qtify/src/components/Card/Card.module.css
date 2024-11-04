@@ -1,0 +1,53 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 160px;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+}
+
+.details {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  text-align: center;
+  color: #ddd;
+}
+
+.chip {
+  margin: 0 auto; /* Centers the button horizontally */
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  font-size: 0.75rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  /* margin-top: 4px;
+  padding: 5px;
+  font-size: 0.75rem;
+  background-color: var(--color-primary);
+  color: #fff; */
+}
+
+.category {
+  font-size: 0.75rem; /* Adjust font size as needed */
+  margin-top: 4px; /* Spacing above the category label */
+  text-align: center; /* Center the category text */
+  color: #ccc; /* Light color for better readability */
+}
