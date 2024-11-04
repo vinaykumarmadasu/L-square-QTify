@@ -1,0 +1,39 @@
+/* Songs.module.css */
+.songsSection {
+    padding: 20px;
+    text-align: left; /* Align text to the left */
+}
+
+.songsTitle {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: white; /* Change the color to white */
+    margin-left: 0; /* Ensure no left margin */
+}
+
+.tabs {
+    margin-bottom: 20px; /* Space below the tabs */
+}
+
+/* Adjust tab styles to match Figma design */
+.MuiTabs-root {
+    border-bottom: 1px solid #3f0101; /* Add bottom border */
+}
+
+.MuiTab-root {
+    font-weight: bold; /* Make tab labels bold */
+    text-transform: none; /* Prevent uppercase transformation */
+    margin-right: 16px; /* Add spacing between tabs */
+}
+
+/* Style for Carousel (if needed) */
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px; /* Add spacing between cards */
+}
+
+.song-card {
+    min-width: 200px; /* Set a minimum width for cards */
+    /* Add additional styles for card appearance */
+}

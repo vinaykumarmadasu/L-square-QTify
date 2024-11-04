@@ -1,0 +1,81 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.album-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.album-card:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px; /* Define size for navigation buttons */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure buttons are above other elements */
+}
+
+.swiper-button-prev {
+    position: absolute;
+    left: 10px;
+}
+
+.swiper-button-next {
+    position: absolute;
+    right: 10px;
+}
+
+/* Styles for navigation buttons */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 24px; /* Adjust icon size */
+    color: #000; /* Icon color */
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+    .album-card {
+        padding: 8px;
+        font-size: 14px; /* Adjust font size */
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 30px; /* Smaller size for navigation on small screens */
+        height: 30px;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 20px; /* Smaller icon size */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .album-card {
+        padding: 12px; /* Adjust padding for medium screens */
+        font-size: 16px; /* Adjust font size */
+    }
+}
+
+@media (min-width: 1025px) {
+    .album-card {
+        padding: 15px; /* Adjust padding for larger screens */
+        font-size: 18px; /* Adjust font size */
+    }
+}

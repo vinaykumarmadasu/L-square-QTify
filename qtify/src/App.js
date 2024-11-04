@@ -3,6 +3,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import Section from './components/Section/Section';
+import Songs from './components/Songs/Songs';
+import Carousel from './components/Carousel/Carousel';
 import './App.css';
 
 function App() {
@@ -29,8 +31,13 @@ function App() {
           <Hero />
         </div>
         <div className="album-sections">
-        <Section title="Top Albums" isTopAlbums={true} />
-        <Section title="New Albums" isTopAlbums={false} />
+        <Section title="Top Albums" isTopAlbums={true}>
+        <Carousel />
+        </Section>
+        <Section title="New Albums" isTopAlbums={false}>
+        <Carousel />
+        </Section>
+        <Songs />
         </div>
     </div>
     </Router>
