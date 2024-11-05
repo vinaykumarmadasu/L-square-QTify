@@ -42,17 +42,26 @@ function Section({ title, isTopAlbums }) {
 
   const handleNext = () => {
     const totalAlbums = isTopAlbums ? topAlbums.length : newAlbums.length;
-    if (currentIndex + 6 < totalAlbums) {
-      setCurrentIndex(currentIndex + 6);
+    if (currentIndex + 1 < totalAlbums) {
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
   const handlePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 6);
+      setCurrentIndex(currentIndex - 1);
     }
   };
 
+   // Effect to scroll the container based on the current index
+   useEffect(() => {
+    const container = document.getElementById(scrollContainerId);
+    if (container) {
+      const cardWidth = container.scrollWidth / ( showAll ? displayedAlbums.length : 6); // Calculate the width of one card
+      container.scrollTo({ left: cardWidth * currentIndex, behavior: 'smooth' });
+    }
+  }, [currentIndex, scrollContainerId, displayedAlbums, showAll]);
+  
   return (
     <div className={styles.container}>
       <div className={styles.section}>
@@ -92,14 +101,14 @@ function Section({ title, isTopAlbums }) {
               className={styles.carouselControl}
               type="button"
               onClick={handleNext}
-              disabled={(isTopAlbums ? topAlbums.length : newAlbums.length) - currentIndex <= 5} // Disable button when at the end
+              disabled={(isTopAlbums ? topAlbums.length : newAlbums.length) - currentIndex <= 1} // Disable button when at the end
             >
               <span className={styles.carouselIcon}>&gt;</span>
             </button>
           )}
         </div>
       </div>
-      <p>Total Albums: {isTopAlbums ? topAlbums.length : newAlbums.length}</p>
+      {/* <p>Total Albums: {isTopAlbums ? topAlbums.length : newAlbums.length}</p> */}
     </div>
   );
 }
