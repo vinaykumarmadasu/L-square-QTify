@@ -1,8 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import { Tabs, Tab, Box } from '@mui/material';
 import Carousel from '../Carousel/Carousel';
-import styles from './Songs.module.css'; // Import CSS module
+import styles from './Songs.module.css';
 
 const Songs = () => {
     const [genres, setGenres] = useState([]);
@@ -14,12 +15,14 @@ const Songs = () => {
             try {
                 const response = await axios.get('https://qtify-backend-labs.crio.do/genres');
                 const data = response.data;
-                console.log('Genres data:', data); // Log the data for debugging
-                if (Array.isArray(data)) {
-                    setGenres(data);
+                console.log('Genres response:', data); // Log the entire response for debugging
+                
+                if (Array.isArray(data.data)) {
+                    const genreList = data.data.map((genre) => genre.key); // Use `key` as the genre value
+                    setGenres(genreList);
                 } else {
                     console.log('Expected an array but got:', data);
-                    setGenres([]); // Fallback to an empty array if not an array
+                    setGenres([]); // Fallback to an empty array if the format is unexpected
                 }
             } catch (error) {
                 console.log('Error fetching genres:', error);
@@ -30,8 +33,12 @@ const Songs = () => {
             try {
                 const response = await axios.get('https://qtify-backend-labs.crio.do/songs');
                 const data = response.data;
-                console.log('Songs data:', data); // Log the data for debugging
-                setSongs(data);
+                console.log('Songs response:', data); // Log the entire response for debugging
+                if (Array.isArray(data)) {
+                    setSongs(data); // Ensure data is an array before setting it
+                } else {
+                    console.log('Expected an array but got:', data);
+                }
             } catch (error) {
                 console.log('Error fetching songs:', error);
             }
@@ -45,9 +52,16 @@ const Songs = () => {
         setSelectedGenre(newValue);
     };
 
+    // Log all songs and the selected genre for better debugging
+    console.log('Selected Genre:', selectedGenre);
+    console.log('All Songs:', songs);
+
+    // Filter songs based on the selected genre
     const filteredSongs = selectedGenre === 'All' 
         ? songs 
         : songs.filter(song => song.genre === selectedGenre);
+
+    console.log('Filtered Songs:', filteredSongs); // Log filtered songs to verify the output
 
     return (
         <section className={styles.songsSection}>
@@ -61,7 +75,7 @@ const Songs = () => {
             >
                 <Tab label="All" value="All" />
                 {genres.length > 0 ? (
-                    genres.map(genre => (
+                    genres.map((genre) => (
                         <Tab key={genre} label={genre} value={genre} />
                     ))
                 ) : (
@@ -69,7 +83,12 @@ const Songs = () => {
                 )}
             </Tabs>
             <Box>
-                <Carousel albums={filteredSongs} />
+                {/* Check if filteredSongs is not empty before passing to Carousel */}
+                {filteredSongs.length > 0 ? (
+                    <Carousel albums={filteredSongs} />
+                ) : (
+                    <p className={styles.noSongsMessage}>No songs available for this genre.</p>
+                )}
             </Box>
         </section>
     );

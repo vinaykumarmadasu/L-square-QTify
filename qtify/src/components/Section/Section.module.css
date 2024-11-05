@@ -26,37 +26,63 @@
 
 .carouselContainer {
   display: flex;
-  align-items: center; /* Aligns buttons and cards vertically */
-  justify-content: space-between; /* Space between buttons and card area */
-  width: 100%; /* Full width */
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .scrollContainer {
   display: flex;
-  align-items: center; /* Align items vertically */
-  overflow-x: auto; /* Allow horizontal scrolling */
-  scroll-behavior: smooth; /* Smooth scrolling */
-  padding: 10px 0; /* Space around cards */
-  flex-grow: 1; /* Allow the container to take remaining space */
+  align-items: center;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  flex-grow: 1;
 }
 
 .cardContainer {
   display: flex;
   gap: 20px; /* Space between cards */
+  flex-wrap: nowrap; /* Keep all cards in a single row */
+}
+
+.gridCardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Fill with multiple cards */
+  gap: 20px; /* Space between cards */
+  padding: 20px 0; /* Padding for top and bottom */
 }
 
 .carouselControl {
   background: transparent;
   border: none;
-  font-size: 2rem; /* Adjust button size */
-  color: #00ff00; /* Customize color */
-  cursor: pointer; /* Change cursor to pointer */
+  font-size: 2rem;
+  color: #00ff00;
+  cursor: pointer;
 }
 
 .carouselIcon {
-  font-size: 2rem; /* Adjust icon size */
+  font-size: 2rem;
 }
 
 .scrollContainer::-webkit-scrollbar {
   display: none; /* Hide scrollbar */
+}
+
+@media (min-width: 768px) {
+  .gridCardContainer {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .gridCardContainer {
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row on larger screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .gridCardContainer {
+    grid-template-columns: repeat(6, 1fr); /* 6 cards per row on extra large screens */
+  }
 }

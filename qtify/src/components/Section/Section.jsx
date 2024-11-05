@@ -7,6 +7,7 @@ function Section({ title, isTopAlbums }) {
   const [topAlbums, setTopAlbums] = useState([]);
   const [newAlbums, setNewAlbums] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -14,21 +15,15 @@ function Section({ title, isTopAlbums }) {
         const endpoint = isTopAlbums
           ? 'https://qtify-backend-labs.crio.do/albums/top'
           : 'https://qtify-backend-labs.crio.do/albums/new';
-        
+
         const response = await axios.get(endpoint);
-        
-        // Check if the expected album exists in the response
+
         if (response.data && Array.isArray(response.data)) {
-          console.log('Fetched albums:', response.data);
-          
-          // Set the appropriate state based on isTopAlbums
           if (isTopAlbums) {
             setTopAlbums(response.data);
           } else {
             setNewAlbums(response.data);
           }
-        } else {
-          console.log('Unexpected response format', response);
         }
       } catch (error) {
         console.log(`Error fetching ${title}`, error);
@@ -38,45 +33,70 @@ function Section({ title, isTopAlbums }) {
     fetchAlbums();
   }, [isTopAlbums, title]);
 
-  // Determine the displayed albums based on the isTopAlbums prop
-  const displayedAlbums = showAll ? (isTopAlbums ? topAlbums : newAlbums) : (isTopAlbums ? topAlbums.slice(0, 7) : newAlbums.slice(0, 7));
-  
+  // Determine the displayed albums based on showAll state and currentIndex
+  const displayedAlbums = showAll
+    ? (isTopAlbums ? topAlbums : newAlbums)
+    : (isTopAlbums ? topAlbums.slice(currentIndex, currentIndex + 6) : newAlbums.slice(currentIndex, currentIndex + 6));
+
   const scrollContainerId = isTopAlbums ? 'topAlbumsScrollContainer' : 'newAlbumsScrollContainer';
+
+  const handleNext = () => {
+    const totalAlbums = isTopAlbums ? topAlbums.length : newAlbums.length;
+    if (currentIndex + 6 < totalAlbums) {
+      setCurrentIndex(currentIndex + 6);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 6);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.section}>
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>{title}</h2>
-          <button className={styles.showAllButton} onClick={() => setShowAll(!showAll)}>
+          <button className={styles.showAllButton} onClick={() => {
+            setShowAll(prev => !prev);
+            // Reset the current index when toggling Show All
+            if (!showAll) setCurrentIndex(0);
+          }}>
             {showAll ? 'Collapse' : 'Show All'}
           </button>
         </div>
 
         <div className={styles.carouselContainer}>
-          <button
-            className={styles.carouselControl}
-            type="button"
-            onClick={() => document.getElementById(scrollContainerId).scrollBy({ left: -300, behavior: 'smooth' })}
-          >
-            <span className={styles.carouselIcon}>&lt;</span> {/* Left arrow */}
-          </button>
+          {!showAll && (
+            <button
+              className={styles.carouselControl}
+              type="button"
+              onClick={handlePrev}
+              disabled={currentIndex === 0} // Disable button when at the start
+            >
+              <span className={styles.carouselIcon}>&lt;</span>
+            </button>
+          )}
 
           <div className={styles.scrollContainer} id={scrollContainerId}>
-            <div className={styles.cardContainer}>
+            <div className={showAll ? styles.gridCardContainer : styles.cardContainer}>
               {displayedAlbums.map(album => (
                 <Card key={album.id} album={album} />
               ))}
             </div>
           </div>
 
-          <button
-            className={styles.carouselControl}
-            type="button"
-            onClick={() => document.getElementById(scrollContainerId).scrollBy({ left: 300, behavior: 'smooth' })}
-          >
-            <span className={styles.carouselIcon}>&gt;</span> {/* Right arrow */}
-          </button>
+          {!showAll && (
+            <button
+              className={styles.carouselControl}
+              type="button"
+              onClick={handleNext}
+              disabled={(isTopAlbums ? topAlbums.length : newAlbums.length) - currentIndex <= 5} // Disable button when at the end
+            >
+              <span className={styles.carouselIcon}>&gt;</span>
+            </button>
+          )}
         </div>
       </div>
       <p>Total Albums: {isTopAlbums ? topAlbums.length : newAlbums.length}</p>
