@@ -33,35 +33,35 @@ function Section({ title, isTopAlbums }) {
     fetchAlbums();
   }, [isTopAlbums, title]);
 
-  // Determine the displayed albums based on showAll state and currentIndex
-  const displayedAlbums = showAll
-    ? (isTopAlbums ? topAlbums : newAlbums)
-    : (isTopAlbums ? topAlbums.slice(currentIndex, currentIndex + 6) : newAlbums.slice(currentIndex, currentIndex + 6));
+  const albums = isTopAlbums ? topAlbums : newAlbums;
 
-  const scrollContainerId = isTopAlbums ? 'topAlbumsScrollContainer' : 'newAlbumsScrollContainer';
+ // Display exactly 7 albums starting from currentIndex
+const displayedAlbums = showAll ? albums : albums.slice(currentIndex, currentIndex + 7);
+
+const scrollContainerId = isTopAlbums ? 'topAlbumsScrollContainer' : 'newAlbumsScrollContainer';
 
   const handleNext = () => {
-    const totalAlbums = isTopAlbums ? topAlbums.length : newAlbums.length;
-    if (currentIndex + 1 < totalAlbums) {
+    // Move forward by 1 card if there are more than 7 cards remaining after current index
+    if (currentIndex + 7 < albums.length) {
       setCurrentIndex(currentIndex + 1);
     }
   };
 
   const handlePrev = () => {
+    // Move back by 1 card but ensure index doesn't go below 0
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
-   // Effect to scroll the container based on the current index
-   useEffect(() => {
+  useEffect(() => {
     const container = document.getElementById(scrollContainerId);
     if (container) {
-      const cardWidth = container.scrollWidth / ( showAll ? displayedAlbums.length : 6); // Calculate the width of one card
+      const cardWidth = container.scrollWidth / (showAll ? albums.length : 7);
       container.scrollTo({ left: cardWidth * currentIndex, behavior: 'smooth' });
     }
-  }, [currentIndex, scrollContainerId, displayedAlbums, showAll]);
-  
+  }, [currentIndex, scrollContainerId, albums, showAll]);
+
   return (
     <div className={styles.container}>
       <div className={styles.section}>
@@ -69,7 +69,6 @@ function Section({ title, isTopAlbums }) {
           <h2 className={styles.title}>{title}</h2>
           <button className={styles.showAllButton} onClick={() => {
             setShowAll(prev => !prev);
-            // Reset the current index when toggling Show All
             if (!showAll) setCurrentIndex(0);
           }}>
             {showAll ? 'Collapse' : 'Show All'}
@@ -82,7 +81,7 @@ function Section({ title, isTopAlbums }) {
               className={styles.carouselControl}
               type="button"
               onClick={handlePrev}
-              disabled={currentIndex === 0} // Disable button when at the start
+              disabled={currentIndex === 0}
             >
               <span className={styles.carouselIcon}>&lt;</span>
             </button>
@@ -101,14 +100,13 @@ function Section({ title, isTopAlbums }) {
               className={styles.carouselControl}
               type="button"
               onClick={handleNext}
-              disabled={(isTopAlbums ? topAlbums.length : newAlbums.length) - currentIndex <= 1} // Disable button when at the end
+              disabled={currentIndex + 7 >= albums.length} // Disable Next if fewer than 7 cards remain
             >
               <span className={styles.carouselIcon}>&gt;</span>
             </button>
           )}
         </div>
       </div>
-      {/* <p>Total Albums: {isTopAlbums ? topAlbums.length : newAlbums.length}</p> */}
     </div>
   );
 }

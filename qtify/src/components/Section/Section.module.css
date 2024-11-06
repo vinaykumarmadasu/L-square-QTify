@@ -43,12 +43,13 @@
 .cardContainer {
   display: flex;
   gap: 20px; /* Space between cards */
-  flex-wrap: nowrap; /* Keep all cards in a single row */
+  /* flex-wrap: nowrap; Keep all cards in a single row */
+  overflow: hidden;
 }
 
 .gridCardContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Fill with multiple cards */
+  grid-template-columns: repeat(7, 1fr); /* Set to 7 cards in a row */
   gap: 20px; /* Space between cards */
   padding: 20px 0; /* Padding for top and bottom */
 }
@@ -71,18 +72,18 @@
 
 @media (min-width: 768px) {
   .gridCardContainer {
-    grid-template-columns: repeat(3, 1fr); /* 3 cards per row on medium screens */
+    grid-template-columns: repeat(7, 1fr); /* Ensure 7 cards on medium screens */
   }
 }
 
 @media (min-width: 1024px) {
   .gridCardContainer {
-    grid-template-columns: repeat(4, 1fr); /* 4 cards per row on larger screens */
+    grid-template-columns: repeat(7, 1fr); /* Ensure 7 cards on larger screens */
   }
 }
 
 @media (min-width: 1200px) {
   .gridCardContainer {
-    grid-template-columns: repeat(6, 1fr); /* 6 cards per row on extra large screens */
+    grid-template-columns: repeat(7, 1fr); /* Ensure 7 cards on extra-large screens */
   }
 }
