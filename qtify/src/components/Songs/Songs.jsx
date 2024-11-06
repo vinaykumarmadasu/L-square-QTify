@@ -25,38 +25,33 @@ const Songs = () => {
             }
         };
 
-        const fetchSongs = async () => {
-            try {
-                const response = await axios.get('https://qtify-backend-labs.crio.do/songs');
-                const data = response.data;
-                if (Array.isArray(data)) {
-                    setSongs(data);
-                    console.log('Fetched songs:', data);
-                } else {
-                    console.log('Unexpected data format received for songs:', data);
-                }
-            } catch (error) {
-                console.log('Error fetching songs:', error);
-            }
-        };
-
         fetchGenres();
-        fetchSongs();
+        fetchSongs('All'); // Initial load for all songs
     }, []);
+
+    const fetchSongs = async (genre) => {
+        try {
+            const genreParam = genre !== 'All' ? `?genre=${encodeURIComponent(genre)}` : '';
+            const response = await axios.get(`https://qtify-backend-labs.crio.do/songs${genreParam}`);
+            const data = response.data;
+            if (Array.isArray(data)) {
+                setSongs(data);
+                console.log(`Fetched songs for genre '${genre}':`, data);
+            } else {
+                console.log('Unexpected data format received for songs:', data);
+            }
+        } catch (error) {
+            console.log('Error fetching songs:', error);
+        }
+    };
 
     const handleTabChange = (genreKey) => {
         setSelectedGenre(genreKey);
         setScrollIndex(0);
-        console.log('Selected Genre:', genreKey);
+        fetchSongs(genreKey); // Fetch songs based on the selected genre
     };
 
-    // Updated filteredSongs with debug output
-    const filteredSongs = selectedGenre === 'All'
-        ? songs
-        : songs.filter(song => {
-            console.log(`Song Title: ${song.title}, Song Genre: ${song.genre}, Selected Genre: ${selectedGenre}`);
-            return song.genre === selectedGenre;
-        });
+    const filteredSongs = songs;
 
     const handleScrollLeft = () => {
         setScrollIndex((prevIndex) => Math.max(prevIndex - 1, 0));
