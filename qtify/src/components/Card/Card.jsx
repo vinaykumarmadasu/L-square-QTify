@@ -25,8 +25,8 @@ function Card({ album }) {
             marginTop: '4px',
           }}
         />
-        <p className={styles.description}>New English Songs</p>
       </div>
+        <p className={styles.description}>New English Songs</p>
     </div>
   );
 }
