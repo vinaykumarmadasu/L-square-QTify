@@ -5,40 +5,38 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   width: 200px;
-  height: 250px; /* Overall card height */
+  height: 250px;
   background-color: #1a1a1a;
   color: #fff;
+  align-items: center;
 }
 
 .image {
   width: 100%;
-  height: 60%; /* Adjust height to ensure proper ratio with details section */
+  height: 150px;
   object-fit: cover;
   border-bottom: 1px solid #333;
 }
 
-.details {
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 40%; /* Adjusted to complement image height */
-}
-
 .title {
   font-size: 0.9rem;
-  margin-top: 6px;
   text-align: center;
   color: #ddd;
+  margin: 8px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 100%;
+  padding: 8px;
+  background-color: #fff;
 }
 
 .chip {
-  margin-top: 4px;
-}
-
-.description {
-  margin-top: 6px;
+  padding: 5px;
   font-size: 0.75rem;
-  color: #bbb;
-  text-align: center;
+  background-color: black;
+  color: white;
 }
